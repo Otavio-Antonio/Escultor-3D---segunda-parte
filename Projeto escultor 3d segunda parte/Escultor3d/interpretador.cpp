@@ -18,7 +18,7 @@ int Interpretador::getDimz(){
 }
 
 vector <FiguraGeometrica*> Interpretador::expor(string filename){
-
+    int cont = 0;
     vector <FiguraGeometrica*> figs;
     ifstream fileIn;
     stringstream ss; // variavel de fluxo
@@ -32,6 +32,7 @@ vector <FiguraGeometrica*> Interpretador::expor(string filename){
     }
 
     while(getline(fileIn, s)){  // esse bloco 'while' lê uma linha do arquivo 'fileIn' por vez, e grava na string 's'
+        cont++;
         ss.clear(); // limpa o fluxo para não acumular dados
         ss.str(s); // o fluxo 'ss' recebe a string 's'
         ss>>token; // 'ss' grava em 'token' o primeiro literal da string... feito isso, os if's abaixo identificam cada token e sugere um 'rumo' para cada um
@@ -41,22 +42,39 @@ vector <FiguraGeometrica*> Interpretador::expor(string filename){
         if(token.compare("putvoxel") == 0){
             int x0, y0, z0;
             ss >> x0 >> y0 >> z0 >> r >> g >> b >> a;
-            figs.push_back(new putVoxel(x0,y0,z0,r,g,b,a)); // push.back insere um objeto (putVoxel alocado) na ultima possição do array figs
+            if(r<=1 && r>=0 && g<=1 && g>=0 && b<=1 && b>=0 && a<=1 && a>=0){
+                figs.push_back(new putVoxel(x0,y0,z0,r,g,b,a)); // push.back insere um objeto (putVoxel alocado) na ultima possição do array figs
+            }else{
+                cout<<"valores de cores invalidos: a figura " <<token <<" linha "<< cont << " nao sera desenhada!" <<endl;
+            }
         }
         if(token.compare("putbox") == 0){
             int x0, x1, y0, y1, z0, z1;
             ss >> x0 >> x1 >> y0 >> y1 >> z0 >> z1 >> r >> g >> b >> a;
-            figs.push_back(new putBox(x0,x1,y0,y1,z0,z1,r,g,b,a)); // push.back insere um objeto (putBox alocado) na ultima possição do array figs
+            if(r<=1 && r>=0 && g<=1 && g>=0 && b<=1 && b>=0 && a<=1 && a>=0){
+                figs.push_back(new putBox(x0,x1,y0,y1,z0,z1,r,g,b,a));// push.back insere um objeto (putBox alocado) na ultima possição do array figs
+            }else{
+                cout<<"valores de cores invalidos: a figura " <<token <<" linha "<< cont << " nao sera desenhada!" <<endl;
+            }
+
         }
         if(token.compare("putsphere") == 0){
             int x0, y0, z0, radius;
             ss >> x0 >> y0 >> z0 >> radius >> r >> g >> b >> a;
-            figs.push_back(new putSphere(x0,y0,z0,radius,r,g,b,a)); // push.back insere um objeto (putSphere alocado) na ultima possição do array figs
+            if(r<=1 && r>=0 && g<=1 && g>=0 && b<=1 && b>=0 && a<=1 && a>=0){
+                figs.push_back(new putSphere(x0,y0,z0,radius,r,g,b,a)); // push.back insere um objeto (putSphere alocado) na ultima possição do array figs
+            }else{
+                cout<<"valores de cores invalidos: a figura " <<token <<" linha "<< cont << " nao sera desenhada!" <<endl;
+            }
         }
         if(token.compare("putellipsoid") == 0){
             int x0, y0, z0, rx, ry, rz;
             ss >> x0 >> y0 >> z0 >> rx >> ry >> rz >> r >> g >> b >> a;
-            figs.push_back(new putEllipsoid(x0,y0,z0,rx,ry,rz,r,g,b,a)); // push.back insere um objeto (putEllipsoid alocado) na ultima possição do array figs
+            if(r<=1 && r>=0 && g<=1 && g>=0 && b<=1 && b>=0 && a<=1 && a>=0){
+                figs.push_back(new putEllipsoid(x0,y0,z0,rx,ry,rz,r,g,b,a)); // push.back insere um objeto (putEllipsoid alocado) na ultima possição do array figs
+            }else{
+                cout<<"valores de cores invalidos: a figura " <<token <<" linha "<< cont << " nao sera desenhada!" <<endl;
+            }
         }
         if(token.compare("cutvoxel") == 0){
             int x0, y0, z0;
@@ -65,7 +83,7 @@ vector <FiguraGeometrica*> Interpretador::expor(string filename){
         }
         if(token.compare("cutbox") == 0){
             int x0, x1, y0, y1, z0, z1;
-            ss >> x0 >> x1 >> y0 >> y1 >> z0 >> z1;
+            ss >> x0 >> x1 >> y0 >> y1 >> z0 >> z1; 
             figs.push_back(new cutBox(x0,x1,y0,y1,z0,z1)); // push.back insere um objeto (cutBox alocado) na ultima possição do array figs
         }
         if(token.compare("cutsphere") == 0){

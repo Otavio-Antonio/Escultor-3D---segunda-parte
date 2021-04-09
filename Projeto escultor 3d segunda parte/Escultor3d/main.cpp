@@ -13,7 +13,7 @@ int main()
 
     Interpretador dados; // o interpretador deve abrir os dados que serão recebidos de um txt
 
-    figs = dados.expor("C:/Users/otario/Desktop/Projeto escultor 3d segunda parte/aaa.txt");
+    figs = dados.expor("aaa.txt");
 
  /*
     figs receberá os dados de interpretador, ou seja, figs será um array de figuras de acordo com o txt.
