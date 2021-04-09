@@ -1,1 +1,1 @@
-Estamos cientes que ainda falta implementar alguns tratamento de erros para que o programa funcione 100%. 
+Estamos cientes que ainda falta implementar alguns tratamentos de erros, principalmente nos métodos tipo cut e put.
